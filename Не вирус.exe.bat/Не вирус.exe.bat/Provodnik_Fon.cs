@@ -8,27 +8,46 @@ namespace Не_вирус.exe.bat
 {
     internal class Provodnik
     {
-        public static int y = 5;
-        public static int x = 3;
+        public static string PATH = "C:\\";
+
 
         public static void Menu()
         {
-            while(true)
+            int y = 5;
+            Console.CursorVisible = false;
+            while (true)
             {
                 string menu = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gg/меню.txt"));
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine(menu);
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine("=>");
 
-                string[] Drives = Environment.GetLogicalDrives();
-                foreach (string D in Drives)
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
+                for (int i = 4; i - 4 < allDrives.Length; i++)
                 {
-                    Console.SetCursorPosition(6, 5);
-                    Console.WriteLine("Локальный диск ("+D+")");
-                    Console.SetCursorPosition(6, 7);
-                    Console.WriteLine("Локальный диск (D:\\)");
+                    foreach (DriveInfo driver in allDrives)
+                    {
+                        Console.SetCursorPosition(4, i += 1);
+                        Console.WriteLine("Диск ({0}) | Тип: {1}", driver.Name.Remove(2,1), driver.DriveType) ;;
+
+
+                        if (driver.IsReady == true)
+                        {
+                            Console.SetCursorPosition(2, i += 1);
+                            Console.WriteLine("Файловая система: {0}", driver.DriveFormat);
+
+                            Console.SetCursorPosition(2, i += 1);
+                            Console.WriteLine("Свободно гигабайт: [{0,0}]", (((driver.TotalFreeSpace / 1024)) / 1024) / 1024);
+
+                            Console.SetCursorPosition(2, i += 1);
+                            Console.WriteLine("Всего гигабайт: [{0,0}]", (((driver.TotalSize / 1024)) / 1024) / 1024);
+                            Console.SetCursorPosition(1, i += 1);
+                            Console.WriteLine("---------------------------------");
+                        }
+                    }
                 }
+
+                Console.SetCursorPosition(2, y);
+                Console.WriteLine("=>");
 
                 ConsoleKeyInfo key = Console.ReadKey(true);
 
@@ -37,28 +56,21 @@ namespace Не_вирус.exe.bat
                     case ConsoleKey.UpArrow:
                         if (y != 5)
                         {
-                            Console.SetCursorPosition(x, y);
-                            y-=2;
+                            Console.SetCursorPosition(2, y);
+                            y-=5;
                         }
                         break;
 
                     case ConsoleKey.DownArrow:
-                        if (y != 7)
+                        if (y != 5 * allDrives.Length)
                         {
-                            Console.SetCursorPosition(x, y);
-                            y+=2;
+                            Console.SetCursorPosition(2, y);
+                            y+=5;
                         }
                         break;
                     case ConsoleKey.Enter:
-                        if (y == 5)
-                        {
-                            Console.SetCursorPosition(20, 5);
-                            Console.WriteLine();
-                        }
-                        if (y == 7)
-                        {
-                            Suvtuvkar.Files();
-                        }
+                            PATH = allDrives[y/5-1].Name;
+                            Filess.Folder_Files();
                         break;
                 }
             }

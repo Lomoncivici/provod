@@ -8,11 +8,9 @@ namespace Не_вирус.exe.bat
 {
     internal class Suvtuvkar
     {
-        public static void Files()
+        
+        public static void Medved()
         {
-
-            ConsoleKeyInfo key;
-            key = Console.ReadKey(true);
             Console.CursorVisible = false;
             string[] bear0 = {
                 " ▄▀ ▄▀      ▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄  ",
@@ -20,7 +18,6 @@ namespace Не_вирус.exe.bat
                 "█▀▀▀▀▀█▄     █░░█░░░░░█░░█",
                 "█░░░░░█ █ ▄▄  █░░░▀█▀░░░█  ▄▄ ",
                 "▀▄▄▄▄▄▀▀ █░░█ ▀▄░░░░░░░▄▀ █░░█",
-                "------------------------------",
             };
             string[] bear1 = {
                 " █  █       ▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄  ",
@@ -28,7 +25,6 @@ namespace Не_вирус.exe.bat
                 "█▀▀▀▀▀█▄     █░░█░░░░░█░░█",
                 "█░░░░░█ █ ▄▄  █░░░▀█▀░░░█  ▄▄ ",
                 "▀▄▄▄▄▄▀▀ █░░█ ▀▄░░░░░░░▄▀ █░░█",
-                "------------------------------",
             };
             string[] bear2 = {
                 " ▄  ▄      ▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄  ",
@@ -36,7 +32,6 @@ namespace Не_вирус.exe.bat
                 "█▀▀▀▀▀█▄     █░░█░░░░░█░░█",
                 "█░░░░░█ █ ▄▄  █░░░▀█▀░░░█  ▄▄ ",
                 "▀▄▄▄▄▄▀▀ █░░█ ▀▄░░░░░░░▄▀ █░░█",
-                "------------------------------",
             };
             string[] bear3 = {
                 "             ▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄  ",
@@ -44,20 +39,17 @@ namespace Не_вирус.exe.bat
                 "█▀▀▀▀▀█▄     █░░▒░░░░░▒░░█",
                 "█░░░░░█ █ ▄▄  █░░░▀█▀░░░█  ▄▄ ",
                 "▀▄▄▄▄▄▀▀ █░░█ ▀▄░░░░░░░▄▀ █░░█",
-                "------------------------------",
             };
             string[] moved = bear0;
             int animationFrame = 0;
-
             while (true)
             {
 
                 for (int i = 0; i < moved.Length; i++)
                 {
-                    Console.SetCursorPosition(50, 10 + i);
+                    Console.SetCursorPosition(2, 29 + i);
                     Console.WriteLine(moved[i]);
                 }
-
                 if (true)
                 {
                     animationFrame = (animationFrame + 1) % 6;
@@ -94,10 +86,6 @@ namespace Не_вирус.exe.bat
                     }
 
                     Thread.Sleep(150);
-                }
-                if (key.Key == ConsoleKey.Escape)
-                {
-                    break;
                 }
             }
         }
