@@ -8,8 +8,7 @@ namespace Не_вирус.exe.bat
 {
     internal class Provodnik
     {
-        public static string PATH = "C:\\";
-
+        public static string PATH = "";
 
         public static void Menu()
         {
@@ -20,6 +19,9 @@ namespace Не_вирус.exe.bat
                 string menu = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gg/меню.txt"));
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine(menu);
+
+                Console.SetCursorPosition(36, 2);
+                Console.WriteLine("Путь:");
 
                 DriveInfo[] allDrives = DriveInfo.GetDrives();
                 for (int i = 4; i - 4 < allDrives.Length; i++)
@@ -69,8 +71,8 @@ namespace Не_вирус.exe.bat
                         }
                         break;
                     case ConsoleKey.Enter:
-                            PATH = allDrives[y/5-1].Name;
-                            Filess.Folder_Files();
+                        PATH = allDrives[y/5-1].Name;
+                        Filess.Folder_Files();
                         break;
                 }
             }

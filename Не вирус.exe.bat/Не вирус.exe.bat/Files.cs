@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.PortableExecutable;
@@ -16,38 +17,50 @@ namespace Не_вирус.exe.bat
             {
                 string[] allfiles = Directory.GetFiles(Provodnik.PATH);
                 string[] allfolders = Directory.GetDirectories(Provodnik.PATH);
+                
                 for (int i = 4; i - 4 < allfolders.Length; i++)
                 {
                     foreach (string folder in allfolders)
                     {
-                        if (folder.Length < 55)
+                        if (folder.Length < 57)
                         {
                             Console.SetCursorPosition(38, i++);
                             if ( i < 35)
                             {
-                                Console.WriteLine(folder);
+                                Console.WriteLine(folder.Replace(Provodnik.PATH, "").Replace("\\", ""));
                             }
                         }
-                        else if (folder.Length > 55)
+                        else if (folder.Length >= 57)
                         {
                             Console.SetCursorPosition(38, i++);
-                            Console.WriteLine(folder.Remove(55, folder.Length - 55) + " ...");
+                            Console.WriteLine(folder.Remove(57, folder.Length - 57).Replace(Provodnik.PATH, "").Replace("\\", "") + " ...");
+                        }
+                        if (Provodnik.PATH.Length < 46)
+                        {
+                            Console.SetCursorPosition(41, 2);
+                            Console.WriteLine("({0})", Provodnik.PATH);
+                        }
+                        else if (Provodnik.PATH.Length >= 46)
+                        {
+                            Console.SetCursorPosition(41, 2);
+                            Console.WriteLine("({0})", Provodnik.PATH.Remove(46, Provodnik.PATH.Length - 46) + " ...");
                         }
                     }
                     foreach (string filename in allfiles)
                     {
-                        if (filename.Length < 55)
+                        if (filename.Length < 57)
                         {
                             Console.SetCursorPosition(38, i++);
                             if (i < 35)
                             {
-                                Console.WriteLine(filename);
+                                Console.WriteLine(filename.Replace(Provodnik.PATH, "").Replace("\\", ""));
                             }
+                            /*Console.WriteLine(i);*/
                         }
-                        else if (filename.Length > 55)
+                        else if (filename.Length >= 57)
                         {
                             Console.SetCursorPosition(38, i++);
-                            Console.WriteLine(filename.Remove(55, filename.Length - 55) + " ...");
+                            Console.WriteLine(filename.Remove(57, filename.Length - 57).Replace(Provodnik.PATH, "").Replace("\\", "") + " ...");
                         }
                     }
                 }
@@ -86,15 +99,22 @@ namespace Не_вирус.exe.bat
                         }
                         break;
                     case ConsoleKey.Enter:
-                        for (int g = 4; g < 34; g++)
+                        if (allfolders.Length != y - 4)
                         {
-                            Console.SetCursorPosition(35, g++);
-                            Console.WriteLine("*                                                              ");
-                            Console.SetCursorPosition(35, g-=1);
-                            Console.WriteLine("*                                                              ");
+                            for (int g = 4; g < 34; g++)
+                            {
+                                Console.SetCursorPosition(35, g);
+                                Console.WriteLine("                                                               ");
+                            }
+                            Provodnik.PATH = allfolders[y - 4];
+                            Folder_Files();
                         }
-                        Provodnik.PATH = allfolders[y - 4];
-                        Folder_Files();
+                            
+                        else if (allfolders.Length < y-4)
+                        {
+                            Provodnik.PATH = allfiles[y - 4];
+                            Process.Start(new ProcessStartInfo { });
+                        }
                         break;
                     case ConsoleKey.Escape:
                         Console.Clear();
