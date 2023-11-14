@@ -17,7 +17,7 @@ namespace Не_вирус.exe.bat
             {
                 string[] allfiles = Directory.GetFiles(Provodnik.PATH);
                 string[] allfolders = Directory.GetDirectories(Provodnik.PATH);
-                
+
                 for (int i = 4; i - 4 < allfolders.Length; i++)
                 {
                     foreach (string folder in allfolders)
@@ -25,7 +25,7 @@ namespace Не_вирус.exe.bat
                         if (folder.Length < 57)
                         {
                             Console.SetCursorPosition(38, i++);
-                            if ( i < 35)
+                            if (i < 35)
                             {
                                 Console.WriteLine(folder.Replace(Provodnik.PATH, "").Replace("\\", ""));
                             }
@@ -91,7 +91,7 @@ namespace Не_вирус.exe.bat
                         }
                         break;
                     case ConsoleKey.DownArrow:
-                        if (y != allfolders.Length + allfiles.Length +3 && y != 33)
+                        if (y != allfolders.Length + allfiles.Length + 3 && y != 33)
                         {
                             Console.SetCursorPosition(36, y);
                             Console.WriteLine("  ");
@@ -109,8 +109,8 @@ namespace Не_вирус.exe.bat
                             Provodnik.PATH = allfolders[y - 4];
                             Folder_Files();
                         }
-                            
-                        else if (allfolders.Length < y-4)
+
+                        else if (allfolders.Length < y - 4)
                         {
                             Provodnik.PATH = allfiles[y - 4];
                             Process.Start(new ProcessStartInfo { });
@@ -122,8 +122,7 @@ namespace Не_вирус.exe.bat
                         break;
                 }
             }
-            
+
         }
     }
 }
-

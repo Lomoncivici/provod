@@ -12,24 +12,24 @@ namespace Не_вирус.exe.bat
 
         public static void Menu()
         {
-            int y = 5;
+            int y = 65;
             Console.CursorVisible = false;
             while (true)
             {
                 string menu = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gg/меню.txt"));
-                Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(0, 60);
                 Console.WriteLine(menu);
 
-                Console.SetCursorPosition(36, 2);
+                Console.SetCursorPosition(36, 62);
                 Console.WriteLine("Путь:");
 
                 DriveInfo[] allDrives = DriveInfo.GetDrives();
-                for (int i = 4; i - 4 < allDrives.Length; i++)
+                for (int i = 64; i - 64 < allDrives.Length; i++)
                 {
                     foreach (DriveInfo driver in allDrives)
                     {
                         Console.SetCursorPosition(4, i += 1);
-                        Console.WriteLine("Диск ({0}) | Тип: {1}", driver.Name.Remove(2,1), driver.DriveType) ;;
+                        Console.WriteLine("Диск ({0}) | Тип: {1}", driver.Name.Remove(2,1), driver.DriveType);
 
 
                         if (driver.IsReady == true)
@@ -56,22 +56,22 @@ namespace Не_вирус.exe.bat
                 switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        if (y != 5)
+                        if (y != 65)
                         {
                             Console.SetCursorPosition(2, y);
-                            y-=5;
+                            y -= 5;
                         }
                         break;
 
                     case ConsoleKey.DownArrow:
-                        if (y != 5 * allDrives.Length)
+                        if (y != 60 + (5 * allDrives.Length))
                         {
                             Console.SetCursorPosition(2, y);
-                            y+=5;
+                            y += 5;
                         }
                         break;
                     case ConsoleKey.Enter:
-                        PATH = allDrives[y/5-1].Name;
+                        PATH = allDrives[(y - 60)/5-1].Name;
                         Filess.Folder_Files();
                         break;
                 }
