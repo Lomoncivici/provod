@@ -8,7 +8,11 @@
             Console.SetWindowSize(146, 36);
             Console.Title = "Проводник";
             Console.CursorVisible = false;
-            Provodnik.Menu();
+
+                Provodnik.Menu();
+                Provodnik.Drives();
+                Provodnik.Strelochki();
+
         } 
     }
 }

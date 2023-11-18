@@ -11,68 +11,81 @@ namespace Не_вирус.exe.bat
 {
     internal class Filess
     {
+        public static string PATH = "";
         public static void Folder_Files()
         {
+            string[] allFilesAndFolders = Directory.GetDirectories(PATH).Concat(Directory.GetFiles(PATH)).ToArray();
             while (true)
             {
-                string[] allfiles = Directory.GetFiles(Provodnik.PATH);
-                string[] allfolders = Directory.GetDirectories(Provodnik.PATH);
-
-                for (int i = 4; i - 4 < allfolders.Length; i++)
+                Provodnik.Menu();
+                Provodnik.Drives();
+                for (int i = 64; i - 64 < allFilesAndFolders.Length; i++)
                 {
-                    foreach (string folder in allfolders)
+                    foreach (string folder in allFilesAndFolders)
                     {
                         if (folder.Length < 57)
                         {
-                            Console.SetCursorPosition(38, i++);
-                            if (i < 35)
+                            if (i < 94 && y < 93)
                             {
-                                Console.WriteLine(folder.Replace(Provodnik.PATH, "").Replace("\\", ""));
+                                Console.SetCursorPosition(38, i++);
+                                Console.Write(folder.Replace(PATH, "").Replace("\\", ""));
+                                Console.SetCursorPosition(78, i - 1);
+                                Info(new FileInfo(PATH));
+                            }
+                            else if (i < Up_Down + 64 && y == 93 )
+                            {
+                                Console.SetCursorPosition(38, i++ - (Up_Down - 29));
+                                Console.Write(folder.Replace(PATH, "").Replace("\\", "") + (i));
+                                Console.SetCursorPosition(78, (i - 1) - (Up_Down - 29));
+                                Info(new FileInfo(PATH));
+                            }
+                            else if (i < Up_Down + 64 && y == 64)
+                            {
+                                Console.SetCursorPosition(38, i++ + (Up_Down - 29));
+                                Console.Write(folder.Replace(PATH, "").Replace("\\", "") + (i));
+                                Console.SetCursorPosition(78, (i - 1) + (Up_Down - 29));
+                                Info(new FileInfo(PATH));
                             }
                         }
-                        else if (folder.Length >= 57)
-                        {
-                            Console.SetCursorPosition(38, i++);
-                            Console.WriteLine(folder.Remove(57, folder.Length - 57).Replace(Provodnik.PATH, "").Replace("\\", "") + " ...");
-                        }
-                        if (Provodnik.PATH.Length < 46)
-                        {
-                            Console.SetCursorPosition(41, 2);
-                            Console.WriteLine("({0})", Provodnik.PATH);
-                        }
-                        else if (Provodnik.PATH.Length >= 46)
-                        {
-                            Console.SetCursorPosition(41, 2);
-                            Console.WriteLine("({0})", Provodnik.PATH.Remove(46, Provodnik.PATH.Length - 46) + " ...");
-                        }
-                    }
-                    foreach (string filename in allfiles)
-                    {
-                        if (filename.Length < 57)
-                        {
-                            Console.SetCursorPosition(38, i++);
-                            if (i < 35)
+                            else if (folder.Length > 57)
                             {
-                                Console.WriteLine(filename.Replace(Provodnik.PATH, "").Replace("\\", ""));
+                                if (i < 94 && y < 93)
+                                {
+                                    Console.SetCursorPosition(38, i++);
+                                    Console.WriteLine(folder.Remove(57, folder.Length - 57).Replace(PATH, "").Replace("\\", "") + " ...");
+                                    Console.SetCursorPosition(78, i - 1);
+                                    Info(new FileInfo(PATH));
+                                }
+                                else if (i < Up_Down + 93 && Up_Down + 30 > 94)
+                                {
+                                    Console.SetCursorPosition(38, i++ - (Up_Down - 29));
+                                    Console.WriteLine(folder.Remove(57, folder.Length - 57).Replace(PATH, "").Replace("\\", "") + " ...");
+                                    Console.SetCursorPosition(78, (i - 1) - (Up_Down - 29));
+                                    Info(new FileInfo(PATH));
+                                }
                             }
-                            /*Console.WriteLine(i);*/
-                        }
-                        else if (filename.Length >= 57)
-                        {
-                            Console.SetCursorPosition(38, i++);
-                            Console.WriteLine(filename.Remove(57, filename.Length - 57).Replace(Provodnik.PATH, "").Replace("\\", "") + " ...");
-                        }
+                            if (PATH.Length < 46)
+                            {
+                                Console.SetCursorPosition(41, 62);
+                                Console.WriteLine("({0})", PATH);
+                            }
+                            else if (PATH.Length >= 46)
+                            {
+                                Console.SetCursorPosition(41, 62);
+                                Console.WriteLine("({0})", PATH.Remove(46, PATH.Length - 46) + " ...");
+                            }
                     }
                 }
                 Da();
             }
         }
+        static int y = 64;
+        static int Up_Down = 0;
         static void Da()
         {
-            int y = 4;
 
-            string[] allfiles = Directory.GetFiles(Provodnik.PATH);
-            string[] allfolders = Directory.GetDirectories(Provodnik.PATH);
+            string[] allfiles = Directory.GetFiles(PATH);
+            string[] allfolders = Directory.GetDirectories(PATH);
             while (true)
             {
                 Console.SetCursorPosition(36, y);
@@ -83,46 +96,71 @@ namespace Не_вирус.exe.bat
                 switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        if (y != 4)
+                        if (y - 64 != 0)
                         {
                             Console.SetCursorPosition(36, y);
                             Console.WriteLine("  ");
                             y--;
+                            Up_Down--;
+                            Console.WriteLine(Up_Down);
+                        }
+                        else if (Up_Down != 0)
+                        {
+                            Up_Down--;
+                            Console.WriteLine(Up_Down);
+                            Folder_Files();
                         }
                         break;
                     case ConsoleKey.DownArrow:
-                        if (y != allfolders.Length + allfiles.Length + 3 && y != 33)
+                        if (y - 63 != allfolders.Length + allfiles.Length && y - 64 != 29)
                         {
                             Console.SetCursorPosition(36, y);
                             Console.WriteLine("  ");
                             y++;
+                            Up_Down++;
+                            Console.WriteLine(Up_Down);
+                        }
+                        else if (Up_Down !=(allfolders.Length + allfiles.Length) - 1)
+                        {
+                            /*for (int i = 64; i -64 < 29; i++)
+                            {
+                                Console.SetCursorPosition(0, i);
+                                Console.WriteLine("                             ");
+                            }*/
+                            Up_Down++;
+                            Console.WriteLine(Up_Down);
+                            Folder_Files();
                         }
                         break;
                     case ConsoleKey.Enter:
-                        if (allfolders.Length != y - 4)
+                        if (allfolders.Length > Up_Down)
                         {
-                            for (int g = 4; g < 34; g++)
-                            {
-                                Console.SetCursorPosition(35, g);
-                                Console.WriteLine("                                                               ");
-                            }
-                            Provodnik.PATH = allfolders[y - 4];
+                            PATH = allfolders[Up_Down];
+                            y = 64;
+                            Up_Down = 0;
                             Folder_Files();
                         }
-
-                        else if (allfolders.Length < y - 4)
+                        else if (allfolders.Length < Up_Down)
                         {
-                            Provodnik.PATH = allfiles[y - 4];
-                            Process.Start(new ProcessStartInfo { });
+                            PATH = allfiles[(Up_Down) - allfolders.Length];
+                            Process.Start(new ProcessStartInfo {FileName = PATH, UseShellExecute = true});
                         }
                         break;
                     case ConsoleKey.Escape:
+                        Up_Down = 0;
+                        y = 64;
                         Console.Clear();
                         Provodnik.Menu();
+                        Provodnik.Drives();
+                        Provodnik.Strelochki();
                         break;
                 }
             }
 
+        }
+        static void Info(FileSystemInfo fsi)
+        {
+            Console.WriteLine("{0:D}", fsi.CreationTime);
         }
     }
 }
